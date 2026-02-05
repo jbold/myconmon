@@ -20,7 +20,13 @@ Personal Continuous Monitoring for your laptop. Security-first observability wit
 
 ## Status
 
-v0.1 - MVP (shell + Python, Rust rewrite planned)
+v0.1 - MVP (shell, Rust rewrite planned)
+
+## Compatibility
+
+- **Fedora Silverblue 43+** (primary target)
+- **rpm-ostree** (current)
+- **bootc** (planned — Fedora is transitioning to bootable containers via quay.io)
 
 ## Architecture
 
