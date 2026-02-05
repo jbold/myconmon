@@ -1,0 +1,6 @@
+# State
+*.jsonl
+
+# Rust (future)
+/target/
+Cargo.lock
