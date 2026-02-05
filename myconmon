@@ -129,11 +129,10 @@ cmd_install() {
     local user_systemd="$HOME/.config/systemd/user"
     mkdir -p "$user_systemd"
     
-    # Service
+    # Single service (used by both timers)
     cat > "$user_systemd/myconmon.service" <<EOF
 [Unit]
 Description=myconmon drift check
-After=network-online.target
 
 [Service]
 Type=oneshot
@@ -147,6 +146,7 @@ Description=Run myconmon on boot
 
 [Timer]
 OnBootSec=2min
+Unit=myconmon.service
 
 [Install]
 WantedBy=timers.target
@@ -161,6 +161,7 @@ Description=Run myconmon weekly
 OnCalendar=weekly
 Persistent=true
 RandomizedDelaySec=1h
+Unit=myconmon.service
 
 [Install]
 WantedBy=timers.target
