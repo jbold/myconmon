@@ -5,7 +5,7 @@
 set -euo pipefail
 
 MYCONMON_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/myconmon"
-GOSS_FILE="${GOSS_FILE:-$HOME/config-management/tests/goss.yaml}"
+GOSS_FILE="${GOSS_FILE:-${XDG_CONFIG_HOME:-$HOME/.config}/myconmon/goss.yaml}"
 LOG_FILE="$MYCONMON_DIR/events.jsonl"
 
 mkdir -p "$MYCONMON_DIR"
@@ -129,6 +129,14 @@ cmd_install() {
     local user_systemd="$HOME/.config/systemd/user"
     mkdir -p "$user_systemd"
     
+    # Detect where myconmon is installed
+    local myconmon_path
+    if [[ -x /usr/local/bin/myconmon ]]; then
+        myconmon_path="/usr/local/bin/myconmon"
+    else
+        myconmon_path="$(realpath "$0")"
+    fi
+
     # Single service (used by both timers)
     cat > "$user_systemd/myconmon.service" <<EOF
 [Unit]
@@ -136,7 +144,7 @@ Description=myconmon drift check
 
 [Service]
 Type=oneshot
-ExecStart=$HOME/work/myconmon/myconmon check
+ExecStart=$myconmon_path check
 EOF
 
     # Boot timer
