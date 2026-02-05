@@ -16,6 +16,9 @@ Personal Continuous Monitoring for your laptop. Security-first observability wit
 
 # Install systemd timers (boot + weekly)
 ./myconmon install
+
+# Run tests
+./test_myconmon.sh
 ```
 
 ## Status
